@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ESandMSProject</title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ESandMSProject.styles.css" asp-append-version="true" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+</head>
+<style>
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 100%;
+            background-color: #063146;
+            color: #fff;
+            transition: all 0.3s;
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        /* Sidebar header style */
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70px;
+            font-size: 22px;
+            font-weight: bold;
+            background-color: #042331;
+            user-select: none;
+        }
+
+        /* Sidebar menu style */
+        .sidebar-menu {
+            list-style: none;
+            margin: 0;
+            margin-top:50px;
+            padding: 0;
+        }
+
+        /* Sidebar menu item style */
+        .sidebar-menu li {
+            margin: 0;
+            padding: 0;
+            display: block;
+            position: relative;
+            line-height: 50px;
+        }
+
+        /* Sidebar menu item link style */
+        .sidebar-menu li a {
+            display: block;
+            color: #fff;
+            padding-left: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: #042331;
+        }
+
+        /* Sidebar menu item link icon style */
+        .sidebar-menu li a i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            font-size: 24px;
+        }
+
+</style>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            School
+        </div>
+        <ul class="sidebar-menu">
+
+            <li class="active">
+                <a asp-area="" asp-controller="Halls" asp-action="Index">
+                    <i class="fa fa-home"></i>
+                    <span>Halls</span>
+                </a>
+            </li>
+
+            <li>
+                <a asp-area="" asp-controller="Students" asp-action="Index">
+                    <i class="fa fa-users"></i>
+                    <span>Students</span>
+                </a>
+            </li>
+
+            <li>
+                <a asp-area="" asp-controller="Classes" asp-action="Index">
+                    <i class="fa fa-book"></i>
+                    <span>Classes</span>
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Exams" asp-action="Index">
+                    <i class="fa fa-calendar"></i>
+                    <span>Exams</span>
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Schedulings" asp-action="Index">
+                    <i class="fa fa-calendar-alt"></i>
+                    <span>Schedule</span>
+                </a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Logins" asp-action="Logout">
+                    <i class="fa fa-lock"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

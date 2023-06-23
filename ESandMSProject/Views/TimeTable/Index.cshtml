@@ -1,0 +1,124 @@
+﻿@model List<ESandMSProject.Models.Domain.Scheduling>
+
+@{
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ESandMSProject.styles.css" asp-append-version="true" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Exam Calendar</title>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .student-info-table {
+            margin-bottom: 50px;
+        }
+
+        .exam-table {
+            margin-top: 50px;
+        }
+
+        .left-rectangle {
+            background-color: #042331;
+            height: 100%;
+            width: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .right-rectangle {
+            background-color: #042331;
+            height: 100%;
+            width: 100px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .logout-link {
+            text-decoration: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin: 10px;
+            color: #000;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-rectangle"></div>
+        <div class="right-rectangle"></div>
+
+        <h1 class="text-center">Exam Calendar</h1>
+
+        <table class="table student-info-table">
+            <tbody>
+                <tr>
+                    <td><strong>Student Name:</strong></td>
+                    <td>@Model.FirstOrDefault()?.Student?.Name</td>
+                </tr>
+                <tr>
+                    <td><strong>Student Surname:</strong></td>
+                    <td>@Model.FirstOrDefault()?.Student?.Surname</td>
+                </tr>
+                <tr>
+                    <td><strong>School Number:</strong></td>
+                    <td>@Model.FirstOrDefault()?.Student?.SchoolNumber</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table exam-table" style="margin-top:100px;">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Exam Date</th>
+                    <th>Exam Time</th>
+                    <th>Hall Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var scheduling in Model)
+                {
+                    <tr>
+                        <td>@scheduling.PaperName</td>
+                        <td>@scheduling.ExamDate.ToString("dd.MM.yyyy")</td>
+                        <td>@scheduling.ExamTime</td>
+                        <td>@scheduling.Hall.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+        <a asp-area="" asp-controller="Logins" asp-action="Logout" class="logout-link">
+            <i class="fa fa-lock" style="margin-right: 5px; color:white;"></i>
+            <span style="color:white">Logout</span>
+        </a>
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

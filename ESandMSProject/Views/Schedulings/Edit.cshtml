@@ -1,0 +1,87 @@
+﻿@model SchedulingVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="wid  =device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<h1>Edit</h1>
+
+<h4>Scheduling</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="PaperName" class="control-label"></label>
+                <input asp-for="PaperName" class="form-control" />
+                <span asp-validation-for="PaperName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExamDate" class="control-label"></label>
+                <input asp-for="ExamDate" class="form-control" />
+                <span asp-validation-for="ExamDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExamTime" class="control-label"></label>
+                <input asp-for="ExamTime" class="form-control" />
+                <span asp-validation-for="ExamTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HallId" class="control-label">Hall</label>
+                <select asp-for="HallId" asp-items="@(new SelectList(ViewBag.Halls, "Id", "Name"))" class="form-control"></select>
+                <span asp-validation-for="HallId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ExamId" class="control-label">Exam</label>
+                <select asp-for="ExamId" asp-items="@(new SelectList(ViewBag.Exams, "Id", "Name"))" class="form-control"></select>
+                <span asp-validation-for="ExamId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StudentId" class="control-label">Student</label>
+                <select asp-for="StudentId" asp-items="@(new SelectList(ViewBag.Students, "Id", "Name"))" class="form-control"></select>
+                <span asp-validation-for="StudentId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    $(() => {
+
+        $("#ExamDate").attr("type", "date")
+        if (@TempData["Overlapping"].ToString().ToLower())
+            alert("There is course overlapping!")
+    })
+
+</script>
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+

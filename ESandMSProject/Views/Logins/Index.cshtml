@@ -1,0 +1,148 @@
+﻿@model ESandMSProject.Models.Domain.Login
+
+@{
+    Layout = null;
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            margin: 100px auto;
+            width: 350px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"],
+        form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            outline: none;
+            transition: border-color 0.2s ease-in;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="password"]:focus {
+            border-color: #4CAF50;
+        }
+
+        form input[type="text"].error,
+        form input[type="password"].error {
+            border-color: #ff4d4d;
+            box-shadow: 0 0 5px #ff4d4d;
+        }
+
+        form input[type="submit"] {
+            display: inline-block;
+            width: 100%;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            background-color: #2B547E;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+            transition: background-color 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #1F3C57;
+        }
+
+
+    </style>
+
+</head>
+
+
+<div class="container">
+
+    <form asp-action="Index" method="post">
+
+        <h2>Login Page</h2>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="Username" />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="Password" />
+
+        <input type="submit" value="Login">
+
+    </form>
+
+    <div id="message-box"></div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/Logins/Index',
+                data: $('form').serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        if (response.role == "A") {
+                            window.location.href = response.redirectTo;
+                        } else if (response.role == "S") {
+                            window.location.href = response.redirectTo2;
+                        }
+                    } else {
+                        $('form')[0].reset();
+                        showMessage(response.message, 'red');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred.');
+                }
+            });
+        });
+
+        function showMessage(message, color) {
+            var messageBox = $('#message-box');
+            messageBox.text(message);
+            messageBox.css('color', color);
+            messageBox.show();
+            setTimeout(function () {
+                messageBox.hide();
+            }, 400);
+        }
+    });
+</script>

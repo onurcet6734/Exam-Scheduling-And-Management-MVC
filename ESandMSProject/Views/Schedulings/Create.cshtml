@@ -1,0 +1,80 @@
+﻿@model SchedulingVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div style="margin-left:200px;">
+
+    <h1>Create</h1>
+
+    <h4>Scheduling</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="PaperName" class="control-label"></label>
+                    <input asp-for="PaperName" class="form-control" />
+                    <span asp-validation-for="PaperName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ExamDate" class="control-label"></label>
+                    <input asp-for="ExamDate" class="form-control" />
+                    <span asp-validation-for="ExamDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ExamTime" class="control-label"></label>
+                    <input asp-for="ExamTime" class="form-control" placeholder="Hour:Minute:Second" />
+                    <span asp-validation-for="ExamTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Duration" class="control-label"></label>
+                    <input asp-for="Duration" class="form-control" />
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="HallId" class="control-label">Hall</label>
+                    <select asp-for="HallId" asp-items="@(new SelectList(ViewBag.Halls, "Id", "Name"))" class="form-control"></select>
+                    <span asp-validation-for="HallId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ExamId" class="control-label">Exam</label>
+                    <select asp-for="ExamId" asp-items="@(new SelectList(ViewBag.Exams, "Id", "Name"))" class="form-control"></select>
+                    <span asp-validation-for="ExamId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="StudentId" class="control-label">Student</label>
+                    <select asp-for="StudentId" asp-items="@(new SelectList(ViewBag.Students, "Id", "Name"))" class="form-control"></select>
+                    <span asp-validation-for="StudentId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+<script>
+    $(() => {
+
+        $("#ExamDate").attr("type", "date")
+        if (@TempData["Overlapping"].ToString().ToLower())
+            alert("There is course overlapping!")
+    })
+
+</script>
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+

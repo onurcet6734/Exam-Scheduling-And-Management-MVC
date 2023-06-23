@@ -1,0 +1,126 @@
+﻿@model List<ESandMSProject.Models.Domain.Scheduling>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="wid  =device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<h1 style="position:absolute; top:20px;left:300px;">Scheduling Management</h1>
+
+<a asp-action="create"><h4 style="position:absolute; top:125px;left:250px; color:black;">Create new <i class="fa fa-user-plus" aria-hidden="true"></i></h4></a>
+
+<form asp-controller="Schedulings" asp-action="Index" method="get" style="position:absolute;top:220px;left:250px">
+    <p>
+        <input type="text" id="searchTerm" name="searchTerm" placeholder="Search Paper Name...">
+        <button class="btn btn-primary">Search <i class="fa fa-search"></i> </button>
+        <button class="btn btn-secondary" href="/Halls">Clear <i class="fa fa-undo"></i></button>
+    </p>
+</form>
+
+
+<style>
+    table {
+        background-color: gray;
+    }
+    tr:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #fff;
+    }
+    tr:hover {
+        background-color: #e6e6e6;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+        border-bottom: none;
+    }
+</style>
+
+<table class="table" style="position:absolute; top:280px;left:250px;width:90%;">
+    <thead>
+        <tr>
+            <th>
+                Paper Name
+            </th>
+
+            <th>
+                Exam Date
+            </th>
+            <th>
+               Exam Time
+            </th>
+            <th>
+                Duration(Minutes)
+            </th>
+            <th>
+                Name Of Hall
+            </th>
+            <th>
+                Name Of Exam
+            </th>
+
+            <th>
+                Name Of Student
+            </th>
+
+            <th>
+                Name Of Class
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PaperName</td>
+               
+                <td>
+                    @item.ExamDate.ToString("dd.MM.yyyy")
+                </td>
+                <td>
+                    @item.ExamTime
+                </td>
+                <td>
+                    @item.Duration
+                </td>
+
+                <td>
+                    @item.Hall.Name
+                </td>
+
+                <td>
+                    @item.Exam.Name
+                </td>
+
+                <td>
+                    @item.Student.Name
+                </td>
+
+                <td>
+                    @item.Student.Class.Name
+                </td>
+
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm rounded-0" title="Edit"><i class="fa fa-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm rounded-0" title="Details"><i class="fa-solid fa-info"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm rounded-0" title="Delete"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
